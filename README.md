@@ -18,6 +18,28 @@ You can also start a TypeScript project of your own and use those platform decla
 
 # Examples
 
+## Run a HTTP server (`GCDWebserver`)
+
+Note: requires installing the `nativescript-http-server` plugin, which has been taken down for some reason.
+
+### JS
+
+```js
+const ws = GCDWebServer.alloc().init();
+ws.addGETHandlerForBasePathDirectoryPathIndexFilenameCacheAgeAllowRangeRequests(
+	"/",
+	NSURL.alloc().initWithString(
+    	NSBundle.mainBundle.pathForResourceOfTypeInDirectory(
+    		"index", "html", "tsserver"
+		)
+	).URLByDeletingLastPathComponent.absoluteString,
+	null,
+	3600,
+	true
+);
+ws.startWithPortBonjourName(8080, null);
+```
+
 ## Dialling a phone number
 
 Note: Acts with the usual native-level restrictions, i.e. the user must accept a system prompt before the phone call will be initiated.
