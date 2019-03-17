@@ -22,6 +22,8 @@ You can also start a TypeScript project of your own and use those platform decla
 
 Note: requires installing the `nativescript-http-server` plugin, which has been taken down for some reason.
 
+It used to be available from here: https://plugins.nativescript.rocks/plugin/nativescript-http-server
+
 ### JS
 
 ```js
