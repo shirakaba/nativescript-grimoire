@@ -463,6 +463,15 @@ const rubyText = originals.reduce((acc, original, i) => {
     return acc + `<rb>${original}</rb><rt>${transliterations[i]}</rt>`
 }, htmlOpening + "<p><ruby>") + "</ruby></p></body></html>";
 
+function makeWebView(bounds){
+    const webView = WKWebView.alloc().initWithFrameConfiguration(bounds, WKWebViewConfiguration.alloc().init());
+    webView.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+    webView.translatesAutoresizingMaskIntoConstraints = true;
+    webView.backgroundColor = UIColor.alloc().initWithRedGreenBlueAlpha(0,1,0,1);
+
+    return webView;
+}
+
 const webView = makeWebView(design.ios.bounds);
 webView.loadHTMLStringBaseURL(rubyText, null);
 design.ios.addSubview(webView);
