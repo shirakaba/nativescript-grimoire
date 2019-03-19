@@ -18,6 +18,157 @@ You can also start a TypeScript project of your own and use those platform decla
 
 # Examples
 
+## Live speech recognition via `Speech.framework`
+
+We'll transcribe speech live using `SFSpeechRecognizer`.
+
+CAUTION: For some reason, I can't get the recording to stop. I'm looking into this.
+
+### JS
+
+```js
+class Transcriber {
+    constructor(localeIdentifier){
+        this.speechRecognizer = SFSpeechRecognizer.alloc().initWithLocale(NSLocale.alloc().initWithLocaleIdentifier(localeIdentifier));
+        this.audioEngine = AVAudioEngine.alloc().init();
+        this.request = SFSpeechAudioBufferRecognitionRequest.alloc().init();
+        this.mostRecentlyProcessedSegmentDuration = 0;
+
+        // Customisable
+        this.onTranscriptionUpdate = (text) => {};
+        this.onSegment = (text) => {};
+        this.onError = (error) => {};
+    }
+
+    launchRecordingRequest(){
+        SFSpeechRecognizer.requestAuthorization((authStatus) => {
+            switch(authStatus){
+                case SFSpeechRecognizerAuthorizationStatus.Authorized:
+                    this.startRecording();
+                    break;
+                case SFSpeechRecognizerAuthorizationStatus.Denied:
+                case SFSpeechRecognizerAuthorizationStatus.Restricted:
+                case SFSpeechRecognizerAuthorizationStatus.NotDetermined:
+                    break;
+            }
+        });
+    }
+
+    startRecording(){
+        this.mostRecentlyProcessedSegmentDuration = 0;
+        this.onTranscriptionUpdate("");
+
+        // 1
+        const node = this.audioEngine.inputNode;
+        node.installTapOnBusBufferSizeFormatBlock(
+            0,
+            1024,
+            node.outputFormatForBus(0),
+            (buffer, time) => {
+                this.request.appendAudioPCMBuffer(buffer);
+            }
+        );
+
+        // 3
+        this.audioEngine.prepare();
+
+        try {
+            this.audioEngine.startAndReturnError();
+            setTimeout(
+                () => {
+                    this.stopRecording();
+                },
+                10000
+            );
+        } catch(error){
+            // Problem starting recording.
+            this.onError(error);
+        }
+
+        this.recognitionTask = this.speechRecognizer.recognitionTaskWithRequestResultHandler(
+            this.request,
+            (result, error) => {
+                if(error !== null){
+                    this.onError(error);
+                    return;
+                }
+                const transcription = result.bestTranscription;
+                if(transcription !== null){
+                    this.updateUIWithTranscription(transcription);
+                }
+            }
+        );
+    }
+
+    stopRecording(){
+        this.audioEngine.stop();
+        this.request.endAudio();
+        if(this.recognitionTask) this.recognitionTask.cancel();
+    }
+    
+    updateUIWithTranscription(transcription){
+        // self.transcriptionOutputLabel.text = transcription.formattedString
+        this.onTranscriptionUpdate(transcription.formattedString);
+
+        const lastSegment = transcription.segments.lastObject;
+        if(lastSegment && lastSegment.duration > this.mostRecentlyProcessedSegmentDuration){
+            this.mostRecentlyProcessedSegmentDuration = lastSegment.duration;
+            this.onSegment(lastSegment.substring);
+        }
+    }
+}
+
+function makeTextView(bounds){
+    const tv = UITextView.alloc().initWithFrame(bounds);
+    tv.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+    tv.translatesAutoresizingMaskIntoConstraints = true;
+    tv.backgroundColor = UIColor.alloc().initWithRedGreenBlueAlpha(0,1,0,1);
+
+    return tv;
+}
+
+const designOrigin = design.ios.bounds.origin;
+const designSize = design.ios.bounds.size;
+
+const transcriptionTv = makeTextView(
+    CGRectMake(designOrigin.x, designOrigin.y, designSize.width, designSize.height / 3)
+);
+const segmentTv = makeTextView(
+    CGRectMake(designOrigin.x, designOrigin.y + designSize.height / 3, designSize.width, designSize.height / 3)
+);
+const errorTv = makeTextView(
+    CGRectMake(designOrigin.x, designOrigin.y + 2 * (designSize.height / 3), designSize.width, designSize.height / 3)
+);
+transcriptionTv.text = "Transcription text view.";
+segmentTv.text = "Segment text view.";
+errorTv.text = "Error text view.";
+design.ios.addSubview(transcriptionTv);
+design.ios.addSubview(segmentTv);
+design.ios.addSubview(errorTv);
+
+const transcriber = new Transcriber("en");
+transcriber.onTranscriptionUpdate = (text) => {
+    transcriptionTv.text = text;
+};
+transcriber.onSegment = (text) => {
+    segmentTv.text = text;
+};
+transcriber.onError = (error) => {
+    if(error instanceof NSError){
+        errorTv.text = error.localizedDescription;
+    } else {
+        errorTv.text = error.toString();
+    }
+};
+transcriber.launchRecordingRequest();
+```
+
+## Swift
+
+Adapted from the Ray Wenderlich [Speech Recognition Tutorial for iOS](https://www.raywenderlich.com/573-speech-recognition-tutorial-for-ios).
+
+
+
 ## Run a HTTP server (`GCDWebserver`)
 
 Note: requires installing the `nativescript-http-server` plugin, which has been taken down for some reason.
