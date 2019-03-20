@@ -16,7 +16,77 @@ I do also refer to the incredible [`tns-platform-declarations`](https://github.c
 
 You can also start a TypeScript project of your own and use those platform declarations to get Intellisense. I just use NS:IDE to skip the source-rebuilding step (NS:IDE allows you to test the code at run-time).
 
+## Invaluable docs
+
+* https://docs.nativescript.org/core-concepts/ios-runtime/types/ObjC-Classes
+* https://docs.nativescript.org/core-concepts/ios-runtime/how-to/ObjC-Subclassing
+* https://github.com/NativeScript/NativeScript/tree/master/tns-platform-declarations/ios/objc-x86_64
+
 # Examples
+
+## Assigning an action to a `UIButton`
+
+Clicking the button will cause the text view to change its text.
+
+### JS
+
+```js
+function makeTextView(bounds){
+    const tv = UITextView.alloc().initWithFrame(bounds);
+    tv.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+    tv.translatesAutoresizingMaskIntoConstraints = true;
+    tv.backgroundColor = UIColor.alloc().initWithRedGreenBlueAlpha(0,1,0,1);
+
+    return tv;
+}
+
+function makeButton(bounds){
+    // const button = UIButton.alloc().initWithFrame(bounds);
+    const button = UIButton.buttonWithType(UIButtonType.System);
+    button.frame = bounds;
+    button.autoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
+    button.translatesAutoresizingMaskIntoConstraints = true;
+    button.backgroundColor = UIColor.alloc().initWithRedGreenBlueAlpha(0,1,0,1);
+
+    return button;
+}
+
+const sections = 2;
+const logTv = makeTextView(
+    CGRectMake(designOrigin.x, designOrigin.y + 0 * (designSize.height / sections), designSize.width, designSize.height / sections)
+);
+logTv.text = "Log text view.";
+const button = makeButton(
+    CGRectMake(designOrigin.x, designOrigin.y + 1 * (designSize.height / sections), designSize.width, designSize.height / sections)
+);
+button.setTitleForState("Toggle recording", UIControlState.Normal);
+const MyTapHandlerImpl = NSObject.extend(
+    {
+        get button() { return this._button; },
+        set button(aButton) { this._button = aButton; },
+        get tv() { return this._tv; },
+        set tv(aTv) { this._tv = aTv; },
+        tap: function (args){
+            if(!this.button) return;
+            if(!this.tv) return;
+            this.tv.text = "BUTTON PRESSED";
+        }
+    },
+    {
+        name: "MyTapHandlerImpl",
+        protocols: [],
+        exposedMethods: {
+            tap: { returns: interop.types.void, params: [UIButton] }
+        }
+    }
+);
+const tapHandler = new MyTapHandlerImpl();
+tapHandler.button = button;
+tapHandler.tv = logTv;
+button.addTargetActionForControlEvents(tapHandler, "tap", UIControlEvents.TouchUpInside);
+design.ios.addSubview(logTv);
+design.ios.addSubview(button);
+```
 
 ## Live speech recognition via `Speech.framework`
 
