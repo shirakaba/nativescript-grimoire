@@ -24,6 +24,19 @@ You can also start a TypeScript project of your own and use those platform decla
 
 # Examples
 
+## String encoding
+
+### JS
+
+```js
+function UTF8toBase64(utf8text){
+	const safeString = unescape(encodeURIComponent(utf8text));
+    const base64 = NSString.alloc().initWithUTF8String(safeString).dataUsingEncoding(NSUTF8StringEncoding)
+    .base64EncodedStringWithOptions(NSDataBase64EncodingOptions.Encoding64CharacterLineLength);
+    return base64;
+}
+```
+
 ## Assigning an action to a `UIButton`
 
 Clicking the button will cause the text view to change its text.
