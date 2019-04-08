@@ -103,6 +103,8 @@ design.ios.addSubview(button);
 
 We'll transcribe speech live using `SFSpeechRecognizer`.
 
+Video demo: https://twitter.com/LinguaBrowse/status/1108447428326408192
+
 ### JS
 
 ```js
@@ -382,6 +384,8 @@ webView.loadRequest(
 
 Note: Acts with the usual native-level restrictions, i.e. the user must accept a system prompt before the phone call will be initiated.
 
+Video demo: https://twitter.com/LinguaBrowse/status/1102184387645505536
+
 ### JS
 
 ```js
@@ -493,6 +497,8 @@ toggleTorch()
 See: https://nshipster.com/avspeechsynthesizer/
 
 Call the text-to-speech functions.
+
+Video demo: https://twitter.com/LinguaBrowse/status/1101943350037544963
 
 ### JS
 
@@ -719,6 +725,8 @@ segmentAndAnalyse("I will soon be 75 🦄", "en")
 
 Perform powerful text tokenisation of many possible languages, including transliteration of non-Latin-based scripts.
 
+Video demo: https://twitter.com/LinguaBrowse/status/1102202042620223488
+
 ### JS
 
 ```js
@@ -844,6 +852,8 @@ TODO
 ## `CMMotionManager`
 
 Access the accelerometer. Here, I update UIProgressViews to display the values.
+
+Video demo: https://twitter.com/LinguaBrowse/status/1102272013845057536
 
 ### JS
 
@@ -1007,6 +1017,8 @@ downloadFileFromURL(
 ## SpriteKit + SceneKit
 
 Programmatically create a 2D game!
+
+Video demo: https://twitter.com/LinguaBrowse/status/1104461351869661185
 
 ### JS
 
