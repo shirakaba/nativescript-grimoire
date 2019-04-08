@@ -32,10 +32,10 @@ Now all moved into individual `README.md` files under folders of a corresponding
 
 # More of my stuff
 
-<div style="display: flex;">
+<!-- <div style="display: flex;">
     <img src="/readme_img/LinguaBrowse.PNG" width="64px"</img>
     <img src="/readme_img/TheBox.PNG" width="64px"</img>
-</div>
+</div> -->
 
 * [LinguaBrowse](https://itunes.apple.com/us/app/linguabrowse/id1281350165?ls=1&mt=8) (iOS) on the App Store. A web browser for the foreign-language web. Made in Swift.
 * [LinguaBrowse](https://itunes.apple.com/gb/app/linguabrowse/id1422884180?mt=12) (macOS) on the App Store. A web browser for the foreign-language web. Made in React Native + TypeScript + Swift.
