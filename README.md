@@ -10,11 +10,9 @@ You can try these out by building a new NativeScript project. But I myself use [
 
 ## How do you discover these snippets?
 
-First, I write the desired native code in Swift. Then I try rewriting that same code line-by-line in NS:IDE, paying attention to the auto-complete suggestions to determine the correct method name (in JS) for each call is. Referencing the official Apple API documentation (ideally with 'Objective-C' selected as the language, which maps better to the NativeScript bindings) helps a lot here.
+First, I write the desired native code in Swift. Then I try rewriting that same code line-by-line my [NativeScript Playground for iOS](https://shirakaba.github.io/NSIDE/ios/index.html), which provides intellisense based on the incredible [`tns-platform-declarations`](https://github.com/NativeScript/NativeScript/tree/master/tns-platform-declarations/ios/objc-x86_64). If I'm ever confused by the typings, I refer to the official Apple API documentation (ideally with 'Objective-C' selected as the language, which maps better to the NativeScript bindings) helps a lot here.
 
-I do also refer to the incredible [`tns-platform-declarations`](https://github.com/NativeScript/NativeScript/tree/master/tns-platform-declarations/ios/objc-x86_64) when I get stuck. One day, it would be great if NS:IDE could have a TypeScript service to ease this process.
-
-You can also start a TypeScript project of your own and use those platform declarations to get Intellisense. I just use NS:IDE to skip the source-rebuilding step (NS:IDE allows you to test the code at run-time).
+You can of course also start a TypeScript project of your own and use those platform declarations to get Intellisense. I just use NS:IDE to skip the source-rebuilding step (NS:IDE allows you to test the code at run-time).
 
 ## Invaluable docs
 
