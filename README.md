@@ -8,6 +8,12 @@ Equivalent (or similar) Swift code is provided where available. NativeScript is 
 
 You can try these out by building a new NativeScript project. But I myself use [NS:IDE](https://github.com/shirakaba/nside), my open-source NativeScript run-time IDE.
 
+<p align="center">
+    <a href="https://twitter.com/intent/follow?screen_name=LinguaBrowse">
+        <img src="https://img.shields.io/twitter/follow/LinguaBrowse.svg?style=social&logo=twitter">
+    </a>
+</p>
+
 ## How do you discover these snippets?
 
 First, I write the desired native code in Swift. Then I try rewriting that same code line-by-line my [NativeScript Playground for iOS](https://shirakaba.github.io/NSIDE/ios/index.html), which provides intellisense based on the incredible [`tns-platform-declarations`](https://github.com/NativeScript/NativeScript/tree/master/tns-platform-declarations/ios/objc-x86_64). If I'm ever confused by the typings, I refer to the official Apple API documentation (ideally with 'Objective-C' selected as the language, which maps better to the NativeScript bindings) helps a lot here.
