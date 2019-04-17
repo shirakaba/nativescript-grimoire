@@ -37,8 +37,9 @@ Now all moved into individual `README.md` files under folders of a corresponding
     <img src="/readme_img/TheBox.PNG" width="64px"</img>
 </div> -->
 
+* [React NativeScript](https://github.com/shirakaba/react-nativescript) (GitHub). A React Renderer for NativeScript!
 * [LinguaBrowse](https://itunes.apple.com/us/app/linguabrowse/id1281350165?ls=1&mt=8) (iOS) on the App Store. A web browser for the foreign-language web. Made in Swift.
 * [LinguaBrowse](https://itunes.apple.com/gb/app/linguabrowse/id1422884180?mt=12) (macOS) on the App Store. A web browser for the foreign-language web. Made in React Native + TypeScript + Swift.
-* [NS:IDE](https://itunes.apple.com/us/app/nside/id1446068686?ls=1&mt=8) (iOS) on the App Store, [GitHub].(https://github.com/shirakaba/nside) (iOS) on the App Store. An IDE for exploring NativeScript... made in NativeScript.
+* [NS:IDE](https://itunes.apple.com/us/app/nside/id1446068686?ls=1&mt=8) (iOS) on the App Store, [GitHub](https://github.com/shirakaba/nside) (iOS) on the App Store. An IDE for exploring NativeScript... made in NativeScript.
 * [Plucky Box](https://itunes.apple.com/us/app/plucky-box/id1375337845?ls=1&mt=8) (iOS) on the App Store, [GitHub](https://github.com/shirakaba/react-native-typescript-2d-game), [expo.io](https://expo.io/@bottledlogic/the-box) as Android/iOS – made in React Native + TypeScript.
 * [@LinguaBrowse](https://twitter.com/LinguaBrowse) – my Twitter account. I talk about NativeScript, React Native, TypeScript, Chinese, Japanese, and my apps on there.
